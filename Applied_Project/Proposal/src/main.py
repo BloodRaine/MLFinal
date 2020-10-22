@@ -2,3 +2,4 @@
 
 x = 5
 print("hello")
+y = 5
