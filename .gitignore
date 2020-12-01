@@ -280,3 +280,6 @@ TSWLatexianTemp*
 *.tar
 
 *.png
+*.bin
+*.timestamps
+*.csv
