@@ -3,17 +3,31 @@
 \usepackage{multirow}
 \usepackage{fullpage}
 \usepackage{xcolor}
+\usepackage{graphicx}
 \pagestyle{plain}
 
-\title{{\normalsize Machine Learning: Theory Project Sprint Update 1}
-\author{Robinson Merillat, Terran Mott}
+\title{Machine Learning: Theory Project Sprint Update 1}
+\author{The Super High Intensity Team\\Robinson Merillat, Terran Mott}
 
 \begin{document}
 \maketitle
 
+For the purposes of this Theory Project, our team is following in the footsteps of authors Nathan Piasco, D\'{e}sir\'{e} Sidib\'{e}, Val\'{e}rie Gouet-Brinet, and Cedric Demonceaux in the paper \textit{Learning Scene Geometry for Visual Localization in Challenging Conditions}. In this paper, the authors proposed a new approach to outdoor image based localization that would be able to deal with challenging conditions such as cross-weather, cross-season, and even some improvments to day/night detection. The novelty of their approach is a new image descriptor that combines a modified image descriptor merged with a depth image descriptor for training a more robust model than either individually. They used pytorch and developed a CNN with ADAM stochastic gradient descent using triplets of images. A similar process is performed for depth images from the point clouds found within the dataset. The paper finds an improvment of 2.15\% in cross-weather scenes, 4.24\% on summer/winter, and some light improvments in day/night conditions. We chose this paper as it aligns well with both of our research goals in robotics and localization.
+
+The dataset used for this paper and that we will be utilizing in our project is the \textit{Oxford Robotcar Dataset.} as well as \textit{ImageNet} for parts of the training process. This dataset contains over 100 repetitions of a consistent drivethrough of Oxford, UK over the course of a several years. It captures different weather, traffic, and pedestrian scenes. This dataset contains cvs's of gps locations tagged to images within the datasets directories. It also contains point clouds of the locations the images were captured. Additionally, there is an SDK in Matlab and python for directly accessing, viewing, and managing this dataset. This includes the ability to generate depth images from those point clouds. As we are working with images and point clouds it is apparent that we are working with several gigabytes of training/testing data in the form of images and point clouds. In the future we plan to find a minimal subset of the dataset that we can use for training and testing. In the training stage we form 400 triplets of images from different dates of the same location. Images and depth maps are scaled to 224x224.
+
+We use Alexnet and Resnet18 architectures for feature extraction in conjunction with feature aggrigation methods which combines input features into smaller sets of features. In particular the paper instructs the use of MAC and NetVLAD. As feature aggrigation is not a topic we have covered in class, we have been spending some time trying to understand exactly what this is and how it affects our model. In addition these methods, side depth map information is aggregated in the training process to enhance the standard image descriptor. The decoder is based on Unet.
+
+An overview of the proposed machine leaning model can be seen in the following diagram:\\
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{"../images/fig1"}
+\end{center}
+The size of the final feature block is 256 x 13 x 13 for Alexnet and 512 x 7 x 7 for Resnet. The initial weights are obtained by training the network on the ImageNet dataset.
 
 
+The metrics used in the paper to test the proposed solution were Recall and Top-1 Recall, however, We did not think this was entirely sufficient and thought that we should also use additional metrics. We felt as though adding in the additional metrics of accuracy and performance time could yield some valuble results.
 
+The current challenges have most revolved around 2 things. (1), Translating the research document into something that makes sense as something to impliment, and (2), figuring out how to work with, download, and load in the training data. We werent certain whether or not we needed to approach things in a supervised or unsupervised way until we understood exactly what the dataset contained. Additionally, up until we discovered the SDK for the dataset, we weren't sure how we might be able to view and connect the data to its labels, let alone how to use the lidar point cloud scans to generate depth maps. The development thus far of the CNN has not been too dificult. PyTorch is well documented with plenty of tutorials, however, I forsee the integration of NetVLAD/MAC will pose an upcoming issue.
 
-
+On the whole, this project is likely slightly behind as it took longer than expected to understand the methods proposed within the paper, gain access to and download the dataset, and begin work on loading that dataset into a program that we can actually begin performing learning methods on. Understanding the authors methods is a large part of the battle, so I expect that our progress wll begin to pick up more in this next sprint. We plan to meet with professors in order to confirm our understanding and ensure we are working in the right direction.
 \end{document}
