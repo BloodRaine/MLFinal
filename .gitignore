@@ -277,3 +277,6 @@ TSWLatexianTemp*
 
 # Mac
 *.DS_Store
+*.tar
+
+*.png

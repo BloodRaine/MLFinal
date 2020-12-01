@@ -14,4 +14,15 @@ import pandas as pd
 from skimage.io import imread
 import matplotlib.pyplot as plt
 
+# From Oxford Dataset SDK
+from build_pointcloud import build_pointcloud
+from transform import build_se3_transform
+from image import load_image
+from camera_model import CameraModel
+
+
+def LoadDataset():
+    print("hello")
+
 # loading dataset
+dataset = LoadDataset()
