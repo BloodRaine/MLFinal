@@ -25,6 +25,7 @@ from camera_model import CameraModel
 images = []
 imgDir = '../dataset/images/stereo/centre'
 
+# TODO currently just loading center images
 def LoadDataset(imgDir):
     i = 0
     for file in os.listdir(imgDir):
@@ -33,12 +34,15 @@ def LoadDataset(imgDir):
             image = load_image(imgDir + '/' + file)
             if image is not None:
                 images.append(image)
+
+            
         i+=1
     # print(i)
-    return i
+    return images
 
 
 # loading dataset
 print("Starting")
 
 dataset = LoadDataset(imgDir)
+
